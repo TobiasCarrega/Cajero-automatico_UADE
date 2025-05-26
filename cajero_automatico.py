@@ -3,9 +3,18 @@
 
 
 saldo = 100
+#funcion ingresar usuario con el pin
 
+#funcion de ingresar un usario
+def ingresarDinero():
+	return
+#funcion de ingresar plata
+#funcion de retirar plata
+#funcion de recuperar pin 
 
-while True:
+peticion=0
+
+while peticion !=4:
 	
 	print()
 	print()
@@ -59,9 +68,8 @@ while True:
 			print("""=================================""")
 			print("Okey, saliendo...")
 			print("""=================================""")
+	else:
+		print("ingrese una accion valida")
 			
-			
-			nya.sleep(1)
-			exit()
 			
 			
