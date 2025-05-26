@@ -1,64 +1,86 @@
-saldo = 10000
-pin_correcto = "1234"
-
-def iniciar_sesion():
+def login(pin_correcto):
     intentos = 3
-    while intentos <= 3:
-        pin = input("Ingrese su PIN: ")
-        if pin == pin_correcto:
-            print("Acceso concedido.")
-            return True
-        else:
-            intentos -= 1
-            print(f"PIN incorrecto. Te quedan {intentos} intento(s).")
-    print("Demasiados intentos fallidos. Tarjeta bloqueada.")
-    return False
+    pin_ingresado = int(input("Ingresá tu PIN: "))
+    while pin_ingresado != pin_correcto and intentos > 1:
+        intentos -= 1
+        print("PIN incorrecto. Intentos restantes:", intentos)
+        pin_ingresado = int(input("Ingresá tu PIN: "))
+    if pin_ingresado == pin_correcto:
+        return True
+    else:
+        print("Cuenta bloqueada.")
+        return False
 
-def ver_saldo():
-    print(f"Tu saldo actual es: ${saldo}")
+def mostrar_menu():
+    print("\n--- MENÚ ---")
+    print("1. Consultar saldo")
+    print("2. Depositar dinero")
+    print("3. Retirar dinero")
+    print("4. Cambiar PIN")
+    print("5. Salir")
+    opcion = int(input("Elegí una opción: "))
+    return opcion
 
-def depositar():
-    global saldo
-    monto = float(input("Ingrese el monto a depositar: "))
+def consultar_saldo(saldo):
+    print("Tu saldo actual es:", saldo)
+    return saldo
+
+def depositar(saldo):
+    monto = int(input("¿Cuánto querés depositar?: "))
     if monto > 0:
         saldo += monto
-        print(f"Depósito exitoso. Nuevo saldo: ${saldo}")
+        print("Depósito exitoso. Nuevo saldo:", saldo)
     else:
-        print("El monto debe ser mayor que cero.")
+        print("Monto inválido.")
+    return saldo
 
-def retirar():
-    global saldo
-    monto = float(input("Ingrese el monto a retirar: "))
-    if monto <= saldo and monto > 0:
+def retirar(saldo):
+    monto = int(input("¿Cuánto querés retirar?: "))
+    if monto > 0 and monto <= saldo:
         saldo -= monto
-        print(f"Retiro exitoso. Nuevo saldo: ${saldo}")
+        print("Retiro exitoso. Nuevo saldo:", saldo)
     else:
         print("Fondos insuficientes o monto inválido.")
+    return saldo
 
-def menu():
-    while True:
-        print("\n--- MENÚ ---")
-        print("1. Ver saldo")
-        print("2. Depositar dinero")
-        print("3. Retirar dinero")
-        print("4. Salir")
-        opcion = input("Seleccione una opción: ")
-        
-        if opcion == "1":
-            ver_saldo()
-        elif opcion == "2":
-            depositar()
-        elif opcion == "3":
-            retirar()
-        elif opcion == "4":
+def cambiar_pin(pin_actual):
+    viejo = int(input("Ingresá el PIN actual: "))
+    if viejo == pin_actual:
+        nuevo = int(input("Nuevo PIN: "))
+        confirmado = int(input("Confirmá el nuevo PIN: "))
+        if nuevo == confirmado:
+            print("PIN cambiado con éxito.")
+            return nuevo
+        else:
+            print("Los PINs no coinciden.")
+            return pin_actual
+    else:
+        print("PIN incorrecto.")
+        return pin_actual
+
+# Programa principal
+def cajero():
+    pin = 1234
+    saldo = 10000
+    sesion_activa = login(pin)
+    
+    while sesion_activa:
+        opcion = mostrar_menu()
+        if opcion == 1:
+            saldo = consultar_saldo(saldo)
+        elif opcion == 2:
+            saldo = depositar(saldo)
+        elif opcion == 3:
+            saldo = retirar(saldo)
+        elif opcion == 4:
+            pin = cambiar_pin(pin)
+        elif opcion == 5:
             print("Gracias por usar el cajero.")
-            activo = False
+            sesion_activa = False
         else:
             print("Opción inválida.")
 
-# Programa principal
-if iniciar_sesion():
-    menu()
+cajero()
 
 			
 			
