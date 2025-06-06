@@ -7,10 +7,14 @@ def ingreso(sumar, total):
 def egreso(restar, total):
     return total - restar
 
-# Listas para usuarios y claves
+# Listas y contadores
 Lista_usuarios = []
 Lista_claves = []
-
+Lista_egresos = []
+Lista_ingresos = []
+Lista_nro_de_movimiento_Ingresos = []
+Lista_nro_de_movimiento_Egresos = []
+contador = 0
 # LOGIN
 correcto = False
 
@@ -40,13 +44,15 @@ saldo = random.randint(0, 50000)
 # MENÚ PRINCIPAL
 peticion = 0
 
-while peticion != 4:
+while peticion != 5:
     print("Cajero automático\n")
     print("\tMenú\n")
     print("1- Agregar dinero")
     print("2- Retirar dinero")
     print("3- Mostrar dinero disponible")
-    print("4- Salir")
+    print("4- Historial de Ingresos/Egresos")
+    print("5- Salir")
+    
     print("-1- Visualizar historial de registros ***REQUIERE PERMISOS DE ADMINISTRADOR***")
 
     peticion = int(input(">>> "))
@@ -57,6 +63,10 @@ while peticion != 4:
         print("Dinero que vas a ingresar")
         sumar = float(input(">>> "))
         saldo = ingreso(sumar, saldo)
+        contador += 1
+        Lista_nro_de_movimiento_Ingresos.append(contador)
+        Lista_ingresos.append(sumar)
+        
         print("Saldo actual:", saldo)
         print("Proceso exitoso")
         print("=================================")
@@ -69,6 +79,9 @@ while peticion != 4:
             print("Insuficiente dinero")
         else:
             saldo = egreso(restar, saldo)
+            contador += 1
+            Lista_nro_de_movimiento_Egresos.append(contador)
+            Lista_egresos.append(restar)
             print("Dinero retirado")
             print("Saldo actual:", saldo)
             print("Proceso exitoso")
@@ -78,8 +91,19 @@ while peticion != 4:
         print("=================================")
         print("El dinero disponible es:", saldo)
         print("=================================")
-
+    
     elif peticion == 4:
+        print("=================================")
+        print("Ingresando al Historial")
+        print("=================================")
+        print("Movimiento de Ingresos//> ",Lista_ingresos)
+        print("   ID CORRESPONDIENTE///>",Lista_nro_de_movimiento_Ingresos) 
+        print("Movimiento de Egresos///>",Lista_egresos)
+        print("   ID CORRESPONDIENTE///>",Lista_nro_de_movimiento_Egresos)
+        print("=================================")
+        
+
+    elif peticion == 5:
         print("=================================")
         print("Okey, saliendo...")
         print("=================================")
@@ -93,4 +117,3 @@ while peticion != 4:
        
 
 
-			
