@@ -21,15 +21,17 @@ while not correcto:
     clave = random.randint(1000, 9999)
     print("Tu clave es:", clave)
     print("=================================")
-    verificacion = int(input("Ingrese la clave generada: "))
+    verificacion = (input("Ingrese la clave generada: "))
 
+    if verificacion=="":
+            print("ingresó el campo vacio")
     if verificacion == clave:
         print("Clave correcta")
         Lista_claves.append(clave)
         print("=================================")
         print("BIENVENIDO", "...", Usuario, "...")
         print("=================================")
-        correcto = True
+        correcto = True 
     else:
         print("Clave incorrecta. Se generará una nueva clave...\n - Reiniciando.....")
         Lista_claves.append(0000)
@@ -90,7 +92,10 @@ while peticion != 4:
         print("Claves registradas:", Lista_claves)
         print("=================================")
 
-       
+    else:
+        print("=================================")
+        print("ingrese una opcion valida")
+        print("=================================")
 
 
 			
