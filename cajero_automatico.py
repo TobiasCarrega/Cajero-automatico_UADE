@@ -135,7 +135,6 @@ while ejecucion:
             DNI = int(input("Ingrese su número de documento: "))
         while DNI != int(DNI):
             print("Debe ingresar solo números. Intente nuevamente.")
-
         posicionBusqueda=busquedaEnLista(Lista_DNI,DNI)
         indice=posicionBusqueda
         if posicionBusqueda==-1:
@@ -147,7 +146,6 @@ while ejecucion:
             print("bienvenido",Lista_nombre[indice] )
             print("=================================")
             verificacion = int(input("Ingrese su pin: "))
-
             if verificacion == Lista_PIN[indice]:
                 print("Clave correcta")
                 print("=================================")
@@ -156,6 +154,8 @@ while ejecucion:
                 correcto = True
             else:
                 print("Clave incorrecta. - Reiniciando.....")
+
+
     # MENÚ PRINCIPAL
     peticion = 0
     sesionActiva= True
