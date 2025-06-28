@@ -83,7 +83,6 @@ def ordenamientoPorDNI():
 
                 ordenada = True
 
-
 def busquedaEnLista(lista_DNI,DNI):
 # buscar el dni en la lista de los dni
     izq=0
@@ -127,7 +126,6 @@ ejecucion=True
 while ejecucion:
     # LOGIN
     correcto = False
-
     while not correcto:
         print("=================================")
         DNI = 0
@@ -138,7 +136,6 @@ while ejecucion:
         posicionBusqueda=busquedaEnLista(Lista_DNI,DNI)
         indice=posicionBusqueda
         if posicionBusqueda==-1:
-            print(indice)
             guardardni=int(input("Su numero de documento no se encuentra registrado ¿Quiere registrarse?(1=si 2=no)"))
             if guardardni==1:
                 agregarsuario(DNI,indice)
