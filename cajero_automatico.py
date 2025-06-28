@@ -130,11 +130,26 @@ while ejecucion:
 
     while not correcto:
         print("=================================")
-        DNI = 0
-        while DNI == 0:
-            DNI = int(input("Ingrese su número de documento: "))
-        while DNI != int(DNI):
-            print("Debe ingresar solo números. Intente nuevamente.")
+        DNI = ""
+        while DNI == "":
+            DNI = input("Ingrese su número de documento: ")
+            
+            while DNI == "":
+                DNI= input("No puede estar vacío. Intente nuevamente: ")
+            else:
+                es_numero = True
+                i = 0
+                while i < len(DNI):
+                    if DNI[i] < '0' or DNI[i] > '9':
+                        es_numero = False
+                    i = i + 1
+
+                if es_numero:
+                    DNI = int(DNI)
+                else:
+                    print("Debe ingresar solo números. Intente nuevamente: ")
+                    DNI = ""  # fuerza a repetir
+
         posicionBusqueda=busquedaEnLista(Lista_DNI,DNI)
         indice=posicionBusqueda
         if posicionBusqueda==-1:
