@@ -55,6 +55,35 @@ def terminar():
     print("=================================")
     ejecucion=False
 
+def ordenamientoPorDNI():
+    ordenada = True
+    while ordenada:
+        ordenada = False
+        for i in range(len(Lista_DNI) - 1):
+            if Lista_DNI[i] > Lista_DNI[i + 1]:
+                # Intercambiar DNI
+                aux = Lista_DNI[i]
+                Lista_DNI[i] = Lista_DNI[i + 1]
+                Lista_DNI[i + 1] = aux
+
+                # Intercambiar nombre
+                aux = Lista_nombre[i]
+                Lista_nombre[i] = Lista_nombre[i + 1]
+                Lista_nombre[i + 1] = aux
+
+                # Intercambiar saldo
+                aux = Lista_saldo[i]
+                Lista_saldo[i] = Lista_saldo[i + 1]
+                Lista_saldo[i + 1] = aux
+
+                # Intercambiar PIN
+                aux = Lista_PIN[i]
+                Lista_PIN[i] = Lista_PIN[i + 1]
+                Lista_PIN[i + 1] = aux
+
+                ordenada = True
+
+
 def busquedaEnLista(lista_DNI,DNI):
 # buscar el dni en la lista de los dni
     izq=0
@@ -71,6 +100,16 @@ def busquedaEnLista(lista_DNI,DNI):
             der= centro-1
 
     return pos
+
+def agregarsuario(DNI,indice):
+    Lista_DNI.append(DNI)
+    nuevoNombre=input("igrese su nombre: ")
+    nuevoPIN=int(input("igrese su Pin: "))
+    Lista_PIN.append(nuevoPIN)
+    Lista_nombre.append(nuevoNombre)
+    Lista_saldo.append(0)
+    indice = len(Lista_DNI)-1
+    ordenamientoPorDNI()
 
 # Listas y contadores
 Lista_DNI = [43459748,46208734]
@@ -91,38 +130,32 @@ while ejecucion:
 
     while not correcto:
         print("=================================")
-        DNI=" "
-        
-        while DNI == " ":
-            DNI = (input("Ingrese su numero de documento: "))
-            # DNI= int(input("no puede ser vacio. porfavor vuelva a intenarlo"))
+        DNI = 0
+        while DNI == 0:
+            DNI = int(input("Ingrese su número de documento: "))
+        while DNI != int(DNI):
+            print("Debe ingresar solo números. Intente nuevamente.")
+
+        posicionBusqueda=busquedaEnLista(Lista_DNI,DNI)
+        indice=posicionBusqueda
+        if posicionBusqueda==-1:
+            print(indice)
+            guardardni=int(input("Su numero de documento no se encuentra registrado ¿Quiere registrarse?(1=si 2=no)"))
+            if guardardni==1:
+                agregarsuario(DNI,indice)
         else:
-            posicionBusqueda=busquedaEnLista(Lista_DNI,DNI)
-            indice=posicionBusqueda
-            if posicionBusqueda==-1:
-                guardardni=int(input("Su numero de documento no se encuentra registrado ¿Quiere registrarse?(1=si 2=no)"))
-                if guardardni==1:
-                    Lista_DNI.append(DNI)
-                    nuevoNombre=input("igrese su nombre: ")
-                    nuevoPIN=input("igrese su Pin: ")
-                    Lista_PIN.append(nuevoPIN)
-                    Lista_nombre.append(nuevoNombre)
-                    Lista_saldo.append(0)
-            else:
-                print("bienvenido",Lista_nombre[indice] )
+            print("bienvenido",Lista_nombre[indice] )
+            print("=================================")
+            verificacion = int(input("Ingrese su pin: "))
+
+            if verificacion == Lista_PIN[indice]:
+                print("Clave correcta")
                 print("=================================")
-                verificacion = int(input("Ingrese su pin: "))
-
-                if verificacion == Lista_PIN[indice]:
-                    print("Clave correcta")
-                    print("=================================")
-                    print("BIENVENIDO", "...", Lista_nombre[indice], "...")
-                    print("=================================")
-                    correcto = True
-                else:
-                    print("Clave incorrecta. - Reiniciando.....")
-
-
+                print("BIENVENIDO", "...", Lista_nombre[indice], "...")
+                print("=================================")
+                correcto = True
+            else:
+                print("Clave incorrecta. - Reiniciando.....")
     # MENÚ PRINCIPAL
     peticion = 0
     sesionActiva= True
