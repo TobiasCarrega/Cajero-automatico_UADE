@@ -124,6 +124,24 @@ def agregarsuario(DNI,indice):
     indice = len(Lista_DNI)-1
     ordenamientoPorDNI()
 
+def validacion(informacion):
+    while informacion == "":
+        informacion= input("No puede estar vacío. Intente nuevamente: ")
+    else:
+        es_numero = True
+        i = 0
+        while i < len(informacion):
+            if informacion[i] < '0' or informacion[i] > '9':
+                es_numero = False
+            i = i + 1
+
+        if es_numero:
+            informacion = int(informacion)
+        else:
+            print("Debe ingresar solo números. Intente nuevamente: ")
+            informacion = ""  # fuerza a repetir
+    return informacion
+
 # Listas y contadores
 Lista_DNI = [43459748,46208734]
 Lista_nombre=["Tobias","Lucia"]
@@ -143,21 +161,21 @@ while ejecucion:
     correcto = False
     while not correcto:
         print("=================================")
-        DNI = 0
-        while DNI == 0:
-            DNI = int(input("Ingrese su número de documento: "))
-        while DNI != int(DNI):
-            print("Debe ingresar solo números. Intente nuevamente.")
-        ordenamientoPorDNI() #Se asegura estar ordenada
-        posicionBusqueda = busquedaEnLista(Lista_DNI, DNI)
-        indice = posicionBusqueda
+        DNI = ""
+        while DNI == "":
+            DNI = input("Ingrese su número de documento: ")
+            DNI=validacion(DNI)
+
+        posicionBusqueda=busquedaEnLista(Lista_DNI,DNI)
+        indice=posicionBusqueda
         if posicionBusqueda==-1:
-            guardardni=int(input("Su numero de documento no se encuentra registrado ¿Quiere registrarse?(1 = si 2 = no)"))
+            guardardni=int(input("Su numero de documento no se encuentra registrado ¿Quiere registrarse?(1=si 2=no)"))
             if guardardni==1:
                 agregarsuario(DNI,indice)
         else:
             print("Bienvenido/a",Lista_nombre[indice] )
             print("=================================")
+            # print(Lista_PIN,Lista_nombre)
             verificacion = int(input("Ingrese su pin: "))
             if verificacion == Lista_PIN[indice]:
                 print("Clave correcta")
