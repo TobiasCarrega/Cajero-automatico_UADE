@@ -1,7 +1,6 @@
 
 import random
 
-# Mejorar el lexico
 # 
 
 # FUNCIONES
