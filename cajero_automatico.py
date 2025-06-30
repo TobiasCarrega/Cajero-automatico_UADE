@@ -1,86 +1,209 @@
-def login(pin_correcto):
-    intentos = 3
-    pin_ingresado = int(input("Ingresá tu PIN: "))
-    while pin_ingresado != pin_correcto and intentos > 1:
-        intentos -= 1
-        print("PIN incorrecto. Intentos restantes:", intentos)
-        pin_ingresado = int(input("Ingresá tu PIN: "))
-    if pin_ingresado == pin_correcto:
-        return True
+
+import random
+
+# Mejorar el lexico
+# 
+
+# FUNCIONES
+
+def ingreso(sumar, total):
+# sumar plata al saldo
+    return total + sumar
+
+def ingresarDinero():
+    print("=================================")
+    print("Dinero que va a ingresar: ")
+    sumar = int(input(">>> "))
+    while sumar <= 0:
+        print("Error, ingrese un saldo válido")
+        sumar = int(input(">>> "))
+    saldo = ingreso(sumar, Lista_saldo[indice])
+    Lista_saldo[indice]=saldo
+    print("Saldo actual:", Lista_saldo[indice])
+    print("Proceso exitoso")
+    print("=================================")
+
+def extraccion():
+    print("=================================")
+    print(f"Extracciones realizadas: {Lista_extracciones[indice]}")
+    if Lista_extracciones[indice] >= 3:
+        print("Límite de 3 extracciones alcanzado.")
     else:
-        print("Cuenta bloqueada.")
-        return False
-
-def mostrar_menu():
-    print("\n--- MENÚ ---")
-    print("1. Consultar saldo")
-    print("2. Depositar dinero")
-    print("3. Retirar dinero")
-    print("4. Cambiar PIN")
-    print("5. Salir")
-    opcion = int(input("Elegí una opción: "))
-    return opcion
-
-def consultar_saldo(saldo):
-    print("Tu saldo actual es:", saldo)
-    return saldo
-
-def depositar(saldo):
-    monto = int(input("¿Cuánto querés depositar?: "))
-    if monto > 0:
-        saldo += monto
-        print("Depósito exitoso. Nuevo saldo:", saldo)
-    else:
-        print("Monto inválido.")
-    return saldo
-
-def retirar(saldo):
-    monto = int(input("¿Cuánto querés retirar?: "))
-    if monto > 0 and monto <= saldo:
-        saldo -= monto
-        print("Retiro exitoso. Nuevo saldo:", saldo)
-    else:
-        print("Fondos insuficientes o monto inválido.")
-    return saldo
-
-def cambiar_pin(pin_actual):
-    viejo = int(input("Ingresá el PIN actual: "))
-    if viejo == pin_actual:
-        nuevo = int(input("Nuevo PIN: "))
-        confirmado = int(input("Confirmá el nuevo PIN: "))
-        if nuevo == confirmado:
-            print("PIN cambiado con éxito.")
-            return nuevo
+        restar = int(input("Dinero que va a retirar\n>>> "))
+        print()
+        if restar > Lista_saldo[indice]:
+            print("Saldo insuficiente")
         else:
-            print("Los PINs no coinciden.")
-            return pin_actual
-    else:
-        print("PIN incorrecto.")
-        return pin_actual
+            Lista_saldo[indice] = egreso(restar, Lista_saldo)
+            Lista_nro_de_movimiento_Egresos.append(contador)
+            Lista_egresos.append(restar)
+            Lista_extracciones[indice] += 1
+            print("Dinero retirado")
+            print("Saldo actual:", Lista_saldo[indice])
+            print("Extracciones restantes: ", 3 - Lista_extracciones[indice])
+            print("Proceso exitoso")
+    print("=================================")
 
-# Programa principal
-def cajero():
-    pin = 1234
-    saldo = 10000
-    sesion_activa = login(pin)
-    
-    while sesion_activa:
-        opcion = mostrar_menu()
-        if opcion == 1:
-            saldo = consultar_saldo(saldo)
-        elif opcion == 2:
-            saldo = depositar(saldo)
-        elif opcion == 3:
-            saldo = retirar(saldo)
-        elif opcion == 4:
-            pin = cambiar_pin(pin)
-        elif opcion == 5:
-            print("Gracias por usar el cajero.")
-            sesion_activa = False
+def mostrarSaldo():
+    print("=================================")
+    print("El dinero disponible es:", Lista_saldo[indice])
+    print("=================================")
+
+def egreso(restar, total):
+# descontar plata del saldo
+    return total - restar
+
+def cerrarSesion():
+    print("=================================")
+    print("Cerrando sesión... .")  
+    print("=================================")
+    sesionActiva=False
+
+def terminar():
+    print("=================================")
+    print("Saliendo...")
+    print("=================================")
+    ejecucion=False
+
+def ordenamientoPorDNI():
+    ordenada = True
+    while ordenada:
+        ordenada = False
+        for i in range(len(Lista_DNI) - 1):
+            if Lista_DNI[i] > Lista_DNI[i + 1]:
+                # Intercambiar DNI
+                aux = Lista_DNI[i]
+                Lista_DNI[i] = Lista_DNI[i + 1]
+                Lista_DNI[i + 1] = aux
+
+                # Intercambiar nombre
+                aux = Lista_nombre[i]
+                Lista_nombre[i] = Lista_nombre[i + 1]
+                Lista_nombre[i + 1] = aux
+
+                # Intercambiar saldo
+                aux = Lista_saldo[i]
+                Lista_saldo[i] = Lista_saldo[i + 1]
+                Lista_saldo[i + 1] = aux
+
+                # Intercambiar PIN
+                aux = Lista_PIN[i]
+                Lista_PIN[i] = Lista_PIN[i + 1]
+                Lista_PIN[i + 1] = aux
+
+                ordenada = True
+
+def busquedaEnLista(lista_DNI,DNI):
+# buscar el dni en la lista de los dni
+    izq=0
+    der=len(Lista_DNI)-1
+    pos=-1
+
+    while izq <= der and pos ==-1:
+        centro=(izq + der)//2
+        if lista_DNI[centro]==DNI:
+            pos=centro
+        elif lista_DNI[centro]< DNI:    
+            izq=centro+1
         else:
-            print("Opción inválida.")
+            der= centro-1
 
-cajero()
+    return pos
 
+def agregarsuario(DNI,indice):
+    Lista_DNI.append(DNI)
+    nuevoNombre=input("Ingrese su nombre: ")
+    nuevoPIN=int(input("Ingrese su Pin: "))
+    Lista_PIN.append(nuevoPIN)
+    Lista_nombre.append(nuevoNombre)
+    Lista_saldo.append(0)
+    Lista_extracciones.append(0)
+    indice = len(Lista_DNI)-1
+    ordenamientoPorDNI()
+
+# Listas y contadores
+Lista_DNI = [43459748,46208734]
+Lista_nombre=["Tobias","Lucia"]
+Lista_saldo=[20000, 3000]
+Lista_PIN = [1234,5678]
+Lista_egresos = []
+Lista_ingresos = []
+Lista_nro_de_movimiento_Ingresos = []
+Lista_nro_de_movimiento_Egresos = []
+Lista_extracciones = [0 for i in Lista_DNI]
+contador = 0
+
+# sistema de ejecucion
+ejecucion=True
+while ejecucion:
+    # LOGIN
+    correcto = False
+    while not correcto:
+        print("=================================")
+        DNI = 0
+        while DNI == 0:
+            DNI = int(input("Ingrese su número de documento: "))
+        while DNI != int(DNI):
+            print("Debe ingresar solo números. Intente nuevamente.")
+        ordenamientoPorDNI() #Se asegura estar ordenada
+        posicionBusqueda = busquedaEnLista(Lista_DNI, DNI)
+        indice = posicionBusqueda
+        if posicionBusqueda==-1:
+            guardardni=int(input("Su numero de documento no se encuentra registrado ¿Quiere registrarse?(1 = si 2 = no)"))
+            if guardardni==1:
+                agregarsuario(DNI,indice)
+        else:
+            print("Bienvenido/a",Lista_nombre[indice] )
+            print("=================================")
+            verificacion = int(input("Ingrese su pin: "))
+            if verificacion == Lista_PIN[indice]:
+                print("Clave correcta")
+                print("=================================")
+                print("Bienvenido/a", "...", Lista_nombre[indice], "...")
+                print("=================================")
+                correcto = True
+            else:
+                print("Clave incorrecta. - Reiniciando.....")
+
+
+    # MENÚ PRINCIPAL
+    peticion = 0
+    sesionActiva= True
+
+    while peticion != 5 and sesionActiva:
+        print("Cajero automático\n")
+        print("\tMenú\n")
+        print("1- Agregar dinero")
+        print("2- Retirar dinero")
+        print("3- Mostrar dinero disponible")
+        print("4- Cerrar sesión")
+        print("5- Salir")
+        
+        peticion = int(input(">>> "))
+        print()
+
+        if peticion == 1:
+            ingresarDinero()
+
+        elif peticion == 2:
+            extraccion()
+
+        elif peticion == 3:
+            mostrarSaldo()
+        
+        elif peticion == 4:
+            cerrarSesion()
+
+        elif peticion == 5:
+            terminar()
+
+        elif peticion == -1:
+            print("=================================")
+            print("Usuarios registrados: ", Lista_DNI)
+            print("Claves registradas: ", Lista_PIN)
+            print("=================================")
+
+        else:
+            print("Debe ingresar una función válida")
 			
 			
