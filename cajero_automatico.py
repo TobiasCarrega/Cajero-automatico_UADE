@@ -9,9 +9,13 @@ def ingreso(sumar, total):
     return total + sumar
 
 def ingresarDinero():
-    print("=================================")
-    print("Dinero que va a ingresar: ")
-    sumar = int(input(">>> "))
+    sumar = ""
+    while sumar == "":
+        print("=================================")
+        print("Dinero que va a ingresar: ")
+        sumar = (input(">>> "))            
+        sumar=validacion(sumar)
+
     while sumar <= 0:
         print("Error, ingrese un saldo válido")
         sumar = int(input(">>> "))
@@ -27,8 +31,12 @@ def extraccion():
     if Lista_extracciones[indice] >= 3:
         print("Límite de 3 extracciones alcanzado.")
     else:
-        restar = int(input("Dinero que va a retirar\n>>> "))
-        print()
+        restar = ""
+        while restar == "":
+            print("=================================")
+            print("Dinero que va a extraer: ")
+            restar = (input(">>> "))            
+            restar=validacion(restar)
         # Se asegura de no extraer negativos
         while restar<0:
             print("Debe ingresar un numero positivo. Intentelo nuevamente.")
@@ -138,7 +146,7 @@ def validacion(informacion):
         if es_numero:
             informacion = int(informacion)
         else:
-            print("Debe ingresar solo números. Intente nuevamente: ")
+            print("Debe ingresar solo números positivos. Intente nuevamente: ")
             informacion = ""  # fuerza a repetir
     return informacion
 
@@ -176,7 +184,12 @@ while ejecucion:
             print("Bienvenido/a",Lista_nombre[indice] )
             print("=================================")
             # print(Lista_PIN,Lista_nombre)
-            verificacion = int(input("Ingrese su pin: "))
+            verificacion = ""
+            while verificacion == "":
+                print("=================================")
+                print("Ingrese su PIN: ")
+                verificacion = (input(">>> "))            
+                verificacion=validacion(verificacion)
             if verificacion == Lista_PIN[indice]:
                 print("Clave correcta")
                 print("=================================")
@@ -200,8 +213,11 @@ while ejecucion:
         print("4- Cerrar sesión")
         print("5- Salir")
         
-        peticion = int(input(">>> "))
-        print()
+        peticion = ""
+        while peticion == "":
+            print("=================================")
+            peticion = (input(">>> "))            
+            peticion=validacion(peticion)
 
         if peticion == 1:
             ingresarDinero()
