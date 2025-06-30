@@ -1,14 +1,15 @@
 import random
 
-# 
-
-# FUNCIONES
+# =========================
+# FUNCIONES PRINCIPALES
+# =========================
 
 def ingreso(sumar, total):
-# sumar plata al saldo
+    # Suma el monto ingresado al saldo total y lo retorna
     return total + sumar
 
 def ingresarDinero():
+    # Permite al usuario ingresar dinero a su cuenta
     sumar = ""
     while sumar == "":
         print("=================================")
@@ -26,6 +27,7 @@ def ingresarDinero():
     print("=================================")
 
 def extraccion():
+    # Permite al usuario retirar dinero de su cuenta, con control de extracciones y saldo
     print("=================================")
     print(f"Extracciones realizadas: {Lista_extracciones[indice]}")
     if Lista_extracciones[indice] >= 3:
@@ -56,15 +58,17 @@ def extraccion():
     print("=================================")
 
 def mostrarSaldo():
+    # Muestra el saldo disponible de la cuenta del usuario actual
     print("=================================")
     print("El dinero disponible es:", Lista_saldo[indice])
     print("=================================")
 
 def egreso(restar, total):
-# descontar plata del saldo
+    # Resta el monto extraído del saldo total y lo retorna
     return total - restar
 
 def cerrarSesion(sesionActiva):
+    # Cierra la sesión del usuario actual
     print("=================================")
     print("Cerrando sesión... .")  
     print("=================================")
@@ -72,6 +76,7 @@ def cerrarSesion(sesionActiva):
     return sesionActiva
 
 def terminar(ejecucion):
+    # Termina la ejecución del programa
     print("=================================")
     print("Saliendo...")
     print("=================================")
@@ -79,6 +84,7 @@ def terminar(ejecucion):
     return ejecucion
 
 def ordenamientoPorDNI():
+    # Ordena todas las listas de usuarios por DNI, manteniendo la relación entre los datos
     ordenada = True
     while ordenada:
         ordenada = False
@@ -107,7 +113,7 @@ def ordenamientoPorDNI():
                 ordenada = True
 
 def busquedaEnLista(lista_DNI,DNI):
-# buscar el dni en la lista de los dni
+    # Busca un DNI en la lista de DNIs usando búsqueda binaria
     izq=0
     der=len(Lista_DNI)-1
     pos=-1
@@ -124,6 +130,7 @@ def busquedaEnLista(lista_DNI,DNI):
     return pos
 
 def agregarsuario(DNI,indice):
+    # Agrega un nuevo usuario a todas las listas y ordena por DNI
     Lista_DNI.append(DNI)
     nuevoNombre=input("Ingrese su nombre: ")
     nuevoPIN = ""
@@ -138,6 +145,7 @@ def agregarsuario(DNI,indice):
     ordenamientoPorDNI()
 
 def validacion(informacion):
+    # Valida que la información ingresada sea un número positivo
     while informacion == "":
         informacion= input("No puede estar vacío. Intente nuevamente: ")
     else:
@@ -155,22 +163,30 @@ def validacion(informacion):
             informacion = ""  # fuerza a repetir
     return informacion
 
-# Listas y contadores
-Lista_DNI = [43459748,46208734]
-Lista_nombre=["Tobias","Lucia"]
-Lista_saldo=[20000, 3000]
-Lista_PIN = [1234,5678]
-Lista_egresos = []
-Lista_ingresos = []
-Lista_nro_de_movimiento_Ingresos = []
-Lista_nro_de_movimiento_Egresos = []
-Lista_extracciones = [0 for i in Lista_DNI]
-contador = 0
+# =========================
+# LISTAS Y CONTADORES
+# =========================
 
-# sistema de ejecucion
+Lista_DNI = [43459748,46208734]         # Lista de DNIs de usuarios
+Lista_nombre=["Tobias","Lucia"]         # Lista de nombres de usuarios
+Lista_saldo=[20000, 3000]               # Lista de saldos de usuarios
+Lista_PIN = [1234,5678]                 # Lista de PINs de usuarios
+Lista_egresos = []                      # Lista de egresos (extracciones)
+Lista_ingresos = []                     # Lista de ingresos (depósitos)
+Lista_nro_de_movimiento_Ingresos = []   # Lista de movimientos de ingresos
+Lista_nro_de_movimiento_Egresos = []    # Lista de movimientos de egresos
+Lista_extracciones = [0 for i in Lista_DNI] # Contador de extracciones por usuario
+contador = 0                            # Contador general de movimientos
+
+# =========================
+# SISTEMA DE EJECUCIÓN
+# =========================
+
 ejecucion=True
 while ejecucion:
-    # LOGIN
+    # -------------------------
+    # BLOQUE DE LOGIN
+    # -------------------------
     correcto = False
     while not correcto:
         print("=================================")
@@ -182,6 +198,7 @@ while ejecucion:
         posicionBusqueda=busquedaEnLista(Lista_DNI,DNI)
         indice=posicionBusqueda
         if posicionBusqueda==-1:
+            # Si el DNI no está registrado, ofrece registrarse
             guardardni = ""
             while guardardni == "":
                 guardardni = (input("Su numero de documento no se encuentra registrado ¿Quiere registrarse?(1=si 2=no)"))            
@@ -189,9 +206,9 @@ while ejecucion:
             if guardardni==1:
                 agregarsuario(DNI,indice)
         else:
+            # Si el usuario existe, pide el PIN
             print("Bienvenido/a",Lista_nombre[indice] )
             print("=================================")
-            # print(Lista_PIN,Lista_nombre)
             verificacion = ""
             while verificacion == "":
                 print("=================================")
@@ -207,8 +224,9 @@ while ejecucion:
             else:
                 print("Clave incorrecta. - Reiniciando.....")
 
-
-    # MENÚ PRINCIPAL
+    # -------------------------
+    # MENÚ PRINCIPAL DEL CAJERO
+    # -------------------------
     peticion = 0
     sesionActiva= True
 
@@ -228,21 +246,27 @@ while ejecucion:
             peticion=validacion(peticion)
 
         if peticion == 1:
+            # Opción para ingresar dinero
             ingresarDinero()
 
         elif peticion == 2:
+            # Opción para extraer dinero
             extraccion()
 
         elif peticion == 3:
+            # Opción para mostrar saldo
             mostrarSaldo()
         
         elif peticion == 4:
+            # Opción para cerrar sesión (volver al login)
             sesionActiva = cerrarSesion(sesionActiva)
 
         elif peticion == 5:
+            # Opción para salir del programa
             ejecucion = terminar(ejecucion)
 
         elif peticion == -1:
+            # Opción oculta para debug: muestra usuarios y claves
             print("=================================")
             print("Usuarios registrados: ", Lista_DNI)
             print("Claves registradas: ", Lista_PIN)
