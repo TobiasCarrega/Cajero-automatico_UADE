@@ -64,17 +64,19 @@ def egreso(restar, total):
 # descontar plata del saldo
     return total - restar
 
-def cerrarSesion():
+def cerrarSesion(sesionActiva):
     print("=================================")
     print("Cerrando sesión... .")  
     print("=================================")
     sesionActiva=False
+    return sesionActiva
 
-def terminar():
+def terminar(ejecucion):
     print("=================================")
     print("Saliendo...")
     print("=================================")
     ejecucion=False
+    return ejecucion
 
 def ordenamientoPorDNI():
     ordenada = True
@@ -229,10 +231,10 @@ while ejecucion:
             mostrarSaldo()
         
         elif peticion == 4:
-            cerrarSesion()
+            sesionActiva = cerrarSesion(sesionActiva)
 
         elif peticion == 5:
-            terminar()
+            ejecucion = terminar(ejecucion)
 
         elif peticion == -1:
             print("=================================")
@@ -242,5 +244,5 @@ while ejecucion:
 
         else:
             print("Debe ingresar una función válida")
-			
-			
+
+
