@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import random
 
 # Mejorar el lexico
+=======
+
+import random
+
+>>>>>>> origin/lucia
 # 
 
 # FUNCIONES
@@ -11,8 +17,16 @@ def ingreso(sumar, total):
 
 def ingresarDinero():
     print("=================================")
+<<<<<<< HEAD
     print("Dinero que vas a ingresar")
     sumar = int(input(">>> "))
+=======
+    print("Dinero que va a ingresar: ")
+    sumar = int(input(">>> "))
+    while sumar <= 0:
+        print("Error, ingrese un saldo válido")
+        sumar = int(input(">>> "))
+>>>>>>> origin/lucia
     saldo = ingreso(sumar, Lista_saldo[indice])
     Lista_saldo[indice]=saldo
     print("Saldo actual:", Lista_saldo[indice])
@@ -21,6 +35,7 @@ def ingresarDinero():
 
 def extraccion():
     print("=================================")
+<<<<<<< HEAD
     restar = int(input("Dinero que vas a retirar\n>>> "))
     print()
     if restar > saldo:
@@ -32,6 +47,25 @@ def extraccion():
         print("Dinero retirado")
         print("Saldo actual:", saldo)
         print("Proceso exitoso")
+=======
+    print(f"Extracciones realizadas: {Lista_extracciones[indice]}")
+    if Lista_extracciones[indice] >= 3:
+        print("Límite de 3 extracciones alcanzado.")
+    else:
+        restar = int(input("Dinero que va a retirar\n>>> "))
+        print()
+        if restar > Lista_saldo[indice]:
+            print("Saldo insuficiente")
+        else:
+            Lista_saldo[indice] = egreso(restar, Lista_saldo)
+            Lista_nro_de_movimiento_Egresos.append(contador)
+            Lista_egresos.append(restar)
+            Lista_extracciones[indice] += 1
+            print("Dinero retirado")
+            print("Saldo actual:", Lista_saldo[indice])
+            print("Extracciones restantes: ", 3 - Lista_extracciones[indice])
+            print("Proceso exitoso")
+>>>>>>> origin/lucia
     print("=================================")
 
 def mostrarSaldo():
@@ -51,7 +85,11 @@ def cerrarSesion():
 
 def terminar():
     print("=================================")
+<<<<<<< HEAD
     print("Okey, saliendo...")
+=======
+    print("Saliendo...")
+>>>>>>> origin/lucia
     print("=================================")
     ejecucion=False
 
@@ -102,23 +140,40 @@ def busquedaEnLista(lista_DNI,DNI):
 
 def agregarsuario(DNI,indice):
     Lista_DNI.append(DNI)
+<<<<<<< HEAD
     nuevoNombre=input("igrese su nombre: ")
     nuevoPIN=int(input("igrese su Pin: "))
     Lista_PIN.append(nuevoPIN)
     Lista_nombre.append(nuevoNombre)
     Lista_saldo.append(0)
+=======
+    nuevoNombre=input("Ingrese su nombre: ")
+    nuevoPIN=int(input("Ingrese su Pin: "))
+    Lista_PIN.append(nuevoPIN)
+    Lista_nombre.append(nuevoNombre)
+    Lista_saldo.append(0)
+    Lista_extracciones.append(0)
+>>>>>>> origin/lucia
     indice = len(Lista_DNI)-1
     ordenamientoPorDNI()
 
 # Listas y contadores
 Lista_DNI = [43459748,46208734]
+<<<<<<< HEAD
 Lista_nombre=["Tobias","lucia"]
+=======
+Lista_nombre=["Tobias","Lucia"]
+>>>>>>> origin/lucia
 Lista_saldo=[20000, 3000]
 Lista_PIN = [1234,5678]
 Lista_egresos = []
 Lista_ingresos = []
 Lista_nro_de_movimiento_Ingresos = []
 Lista_nro_de_movimiento_Egresos = []
+<<<<<<< HEAD
+=======
+Lista_extracciones = [0 for i in Lista_DNI]
+>>>>>>> origin/lucia
 contador = 0
 
 # sistema de ejecucion
@@ -133,6 +188,7 @@ while ejecucion:
             DNI = int(input("Ingrese su número de documento: "))
         while DNI != int(DNI):
             print("Debe ingresar solo números. Intente nuevamente.")
+<<<<<<< HEAD
         posicionBusqueda=busquedaEnLista(Lista_DNI,DNI)
         indice=posicionBusqueda
         if posicionBusqueda==-1:
@@ -141,12 +197,27 @@ while ejecucion:
                 agregarsuario(DNI,indice)
         else:
             print("bienvenido",Lista_nombre[indice] )
+=======
+        ordenamientoPorDNI() #Se asegura estar ordenada
+        posicionBusqueda = busquedaEnLista(Lista_DNI, DNI)
+        indice = posicionBusqueda
+        if posicionBusqueda==-1:
+            guardardni=int(input("Su numero de documento no se encuentra registrado ¿Quiere registrarse?(1 = si 2 = no)"))
+            if guardardni==1:
+                agregarsuario(DNI,indice)
+        else:
+            print("Bienvenido/a",Lista_nombre[indice] )
+>>>>>>> origin/lucia
             print("=================================")
             verificacion = int(input("Ingrese su pin: "))
             if verificacion == Lista_PIN[indice]:
                 print("Clave correcta")
                 print("=================================")
+<<<<<<< HEAD
                 print("BIENVENIDO", "...", Lista_nombre[indice], "...")
+=======
+                print("Bienvenido/a", "...", Lista_nombre[indice], "...")
+>>>>>>> origin/lucia
                 print("=================================")
                 correcto = True
             else:
@@ -156,6 +227,7 @@ while ejecucion:
     # MENÚ PRINCIPAL
     peticion = 0
     sesionActiva= True
+<<<<<<< HEAD
 
     while peticion != 5 and sesionActiva:
         print("Cajero automático\n")
@@ -192,5 +264,46 @@ while ejecucion:
 
         else:
             print("Debe ingresar una funcion valida")
+=======
+>>>>>>> origin/lucia
 
+    while peticion != 5 and sesionActiva:
+        print("Cajero automático\n")
+        print("\tMenú\n")
+        print("1- Agregar dinero")
+        print("2- Retirar dinero")
+        print("3- Mostrar dinero disponible")
+        print("4- Cerrar sesión")
+        print("5- Salir")
+        
+        peticion = int(input(">>> "))
+        print()
 
+<<<<<<< HEAD
+=======
+        if peticion == 1:
+            ingresarDinero()
+
+        elif peticion == 2:
+            extraccion()
+
+        elif peticion == 3:
+            mostrarSaldo()
+        
+        elif peticion == 4:
+            cerrarSesion()
+
+        elif peticion == 5:
+            terminar()
+
+        elif peticion == -1:
+            print("=================================")
+            print("Usuarios registrados: ", Lista_DNI)
+            print("Claves registradas: ", Lista_PIN)
+            print("=================================")
+
+        else:
+            print("Debe ingresar una función válida")
+			
+			
+>>>>>>> origin/lucia
