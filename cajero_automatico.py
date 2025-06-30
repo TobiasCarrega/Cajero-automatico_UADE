@@ -265,13 +265,6 @@ while ejecucion:
             # Opción para salir del programa
             ejecucion = terminar(ejecucion)
 
-        elif peticion == -1:
-            # Opción oculta para debug: muestra usuarios y claves
-            print("=================================")
-            print("Usuarios registrados: ", Lista_DNI)
-            print("Claves registradas: ", Lista_PIN)
-            print("=================================")
-
         else:
             print("Debe ingresar una función válida")
 
