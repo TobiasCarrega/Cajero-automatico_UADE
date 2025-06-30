@@ -126,7 +126,10 @@ def busquedaEnLista(lista_DNI,DNI):
 def agregarsuario(DNI,indice):
     Lista_DNI.append(DNI)
     nuevoNombre=input("Ingrese su nombre: ")
-    nuevoPIN=int(input("Ingrese su Pin: "))
+    nuevoPIN = ""
+    while nuevoPIN == "":
+        nuevoPIN = (input("Genere su Pin: "))            
+        nuevoPIN=validacion(nuevoPIN)
     Lista_PIN.append(nuevoPIN)
     Lista_nombre.append(nuevoNombre)
     Lista_saldo.append(0)
@@ -179,7 +182,10 @@ while ejecucion:
         posicionBusqueda=busquedaEnLista(Lista_DNI,DNI)
         indice=posicionBusqueda
         if posicionBusqueda==-1:
-            guardardni=int(input("Su numero de documento no se encuentra registrado ¿Quiere registrarse?(1=si 2=no)"))
+            guardardni = ""
+            while guardardni == "":
+                guardardni = (input("Su numero de documento no se encuentra registrado ¿Quiere registrarse?(1=si 2=no)"))            
+                guardardni=validacion(guardardni)
             if guardardni==1:
                 agregarsuario(DNI,indice)
         else:
